@@ -27,3 +27,7 @@ jobs:
       - name: Noop Deploy
         if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop == 'true' }}
         run: echo "Noop Deploy!"
+
+      - name: Regular Deploy
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
+        run: echo "Regular Deploy!"
