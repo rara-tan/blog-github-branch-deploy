@@ -16,6 +16,7 @@ jobs:
   demo:
     if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: branch-deploy
         id: branch-deploy
