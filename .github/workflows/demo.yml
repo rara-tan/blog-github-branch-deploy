@@ -34,8 +34,21 @@ jobs:
         if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
         run: echo "Regular Deploy!"
 
-      - name: Env Test
-        run: echo ${{ vars.TEST }}
+      - name: Production Noop Deploy
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop == 'true' && steps.branch-deploy.outputs.environment == 'production' }}
+        run: echo "Production Noop Deploy!"
+
+      - name: Production Regular Deploy
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' && steps.branch-deploy.outputs.environment == 'production' }}
+        run: echo "Production Regular Deploy!"
+
+      - name: Staging Noop Deploy
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop == 'true' && steps.branch-deploy.outputs.environment == 'staging' }}
+        run: echo "Staging Noop Deploy!"
+
+      - name: Staging Regular Deploy
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' && steps.branch-deploy.outputs.environment == 'staging' }}
+        run: echo "Staging Regular Deploy!"
   result:
     needs: [demo]
     runs-on: ubuntu-latest
