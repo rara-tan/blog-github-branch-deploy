@@ -23,3 +23,7 @@ jobs:
 
       - name: Test Run
         run: echo "test run"
+
+      - name: Noop Deploy
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop == 'true' }}
+        run: echo "Noop Deploy!"
