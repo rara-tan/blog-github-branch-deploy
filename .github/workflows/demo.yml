@@ -31,3 +31,6 @@ jobs:
       - name: Regular Deploy
         if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
         run: echo "Regular Deploy!"
+
+      - name: Env Test
+        run: echo ${{ vars.TEST }}
