@@ -16,7 +16,8 @@ jobs:
   demo:
     if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
-    environment: production
+    outputs:
+      environment: ${{ steps.branch-deploy.outputs.environment }}
     steps:
       - name: branch-deploy
         id: branch-deploy
@@ -33,5 +34,12 @@ jobs:
         if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
         run: echo "Regular Deploy!"
 
+      - name: Env Test
+        run: echo ${{ vars.TEST }}
+  result:
+    needs: [demo]
+    runs-on: ubuntu-latest
+    environment: ${{ needs.demo.outputs.environment }}
+    steps:
       - name: Env Test
         run: echo ${{ vars.TEST }}
