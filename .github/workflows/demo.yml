@@ -1,0 +1,24 @@
+name: Demo
+
+# The workflow to execute on is comments that are newly created
+on:
+  issue_comment:
+    types: [created]
+
+# Permissions needed for reacting and adding comments for IssueOps commands
+permissions:
+  pull-requests: write
+  deployments: write
+  contents: write
+  checks: read
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: branch-deploy
+        id: branch-deploy
+        uses: github/branch-deploy@v9.0.0
+
+      - name: Test Run
+        run: echo "test run"
