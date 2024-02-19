@@ -78,7 +78,7 @@ jobs:
       ref: ${{ needs.demo.outputs.ref }}
       working_directory: ${{ vars.TEST }}
     steps:
-      run: echo "test"
+      - run: echo "test"
 
   result:
     needs: [demo,make-outputs]
