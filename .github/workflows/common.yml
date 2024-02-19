@@ -14,12 +14,11 @@ jobs:
   plan:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    defaults:
-      run:
-        working-directory: ${{ inputs.working_directory }}
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.ref }}
+          ref: ${{ inputs.workspace }}
 
       - run: echo "test"
+
+      - run: echo ${{ inputs.working_directory }}
