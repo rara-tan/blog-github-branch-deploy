@@ -86,7 +86,7 @@ jobs:
 
   result:
     needs: [demo,make-outputs]
-    if: ${{ needs.make-outputs.outputs.continue == 'true' && steps.branch-deploy.outputs.noop == 'true' }}
+    if: ${{ needs.make-outputs.outputs.continue == 'true' && needs.make-outputs.outputs.noop == 'true' }}
     uses: rara-tan/blog-github-branch-deploy/.github/workflows/common.yml@main
     with:
       workspace: ${{ needs.demo.outputs.ref }}
