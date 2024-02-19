@@ -70,11 +70,17 @@ jobs:
             echo "::set-output name=$KEY::$VALUE"
           done
 
-  result:
+  make-outputs:
     needs: [demo]
-    # environment: ${{ needs.demo.outputs.environment }}
+    environment: ${{ needs.demo.outputs.environment }}
+    runs-on: ubuntu-latest
+    outputs:
+      ref: ${{ needs.demo.outputs.ref }}
+      working_directory: ${{ vars.TEST }}
+
+  result:
+    needs: [demo,make-outputs]
     uses: rara-tan/blog-github-branch-deploy/.github/workflows/common.yml@main
-    environment: ${{ needs.demo.output.environment }}
     with:
       workspace: ${{ needs.demo.outputs.ref }}
-      working_directory: "/"
+      working_directory: ${{ needs.make-outputs.outputs.working_directory }}
