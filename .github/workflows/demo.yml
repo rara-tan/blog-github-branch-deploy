@@ -72,8 +72,8 @@ jobs:
 
   result:
     needs: [demo]
+    # environment: ${{ needs.demo.outputs.environment }}
     uses: rara-tan/blog-github-branch-deploy/.github/workflows/common.yml@main
-    environment: ${{ needs.demo.outputs.environment }}
     with:
       workspace: ${{ needs.demo.outputs.ref }}
       working_directory: "/"
