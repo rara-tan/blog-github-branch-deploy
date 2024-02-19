@@ -19,7 +19,6 @@ jobs:
   demo:
     if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
-    environment: production
     outputs:
       environment: ${{ steps.branch-deploy.outputs.environment }}
       project: ${{ steps.set-outputs.outputs.project }}
@@ -27,6 +26,8 @@ jobs:
       - name: branch-deploy
         id: branch-deploy
         uses: github/branch-deploy@v9.0.0
+        with:
+          environment_targets: staging-demo,production-demo
 
       - name: Test Run
         run: echo "test run"
