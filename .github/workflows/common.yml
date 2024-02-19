@@ -1,0 +1,25 @@
+name: Common
+
+on:
+  workflow_call:
+    inputs:
+      workspace:
+        required: true
+        type: string
+      working_directory:
+        required: true
+        type: string
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - run: echo "test"

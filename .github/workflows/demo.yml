@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       environment: ${{ steps.branch-deploy.outputs.environment }}
+      ref: ${{ steps.branch-deploy.outputs.ref }}
       project: ${{ steps.set-outputs.outputs.project }}
     steps:
       - name: branch-deploy
@@ -71,11 +72,9 @@ jobs:
 
   result:
     needs: [demo]
+    uses: rara-tan/blog-github-branch-deploy/.github/workflows/common.yml@main
     runs-on: ubuntu-latest
     environment: ${{ needs.demo.outputs.environment }}
-    steps:
-      - name: Env Test
-        run: echo ${{ vars.TEST }}
-
-      - name: Env Test
-        run: echo ${{ needs.demo.outputs.project }}
+    with:
+      workspace: ${{ needs.demo.outputs.ref }}
+      working_directory: "/"
