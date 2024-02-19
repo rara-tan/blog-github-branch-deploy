@@ -20,6 +20,8 @@ jobs:
     if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     outputs:
+      continue: ${{ steps.branch-deploy.outputs.continue }}
+      noop: ${{ steps.branch-deploy.outputs.noop }}
       environment: ${{ steps.branch-deploy.outputs.environment }}
       ref: ${{ steps.branch-deploy.outputs.ref }}
       project: ${{ steps.set-outputs.outputs.project }}
@@ -76,12 +78,15 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       ref: ${{ needs.demo.outputs.ref }}
+      noop: ${{ needs.demo.outputs.noop }}
+      continue: ${{ needs.demo.outputs.continue }}
       working_directory: ${{ vars.TEST }}
     steps:
       - run: echo "test"
 
   result:
     needs: [demo,make-outputs]
+    if: ${{ needs.make-outputs.outputs.continue == 'true' && steps.branch-deploy.outputs.noop == 'true' }}
     uses: rara-tan/blog-github-branch-deploy/.github/workflows/common.yml@main
     with:
       workspace: ${{ needs.demo.outputs.ref }}
