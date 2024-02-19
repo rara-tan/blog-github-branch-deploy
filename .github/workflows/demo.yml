@@ -4,6 +4,9 @@ name: Demo
 on:
   issue_comment:
     types: [created]
+    paths:
+      - "test/**"
+      - .github/workflows/demo.yml
 
 # Permissions needed for reacting and adding comments for IssueOps commands
 permissions:
