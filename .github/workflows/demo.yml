@@ -62,11 +62,10 @@ jobs:
           for i in "${PARAM_ARRAY[@]}"; do
             KEY=$(echo $i | awk -F'=' '{print $1}')
             VALUE=$(echo $i | awk -F'=' '{print $2}')
-            if [[ $KEY == "PROJECT" ]]; then
-              PROJECT=$VALUE
-            fi
+            eval "$KEY=$VALUE"
           done
           echo "PROJECT: $PROJECT"
+          echo "MODE: $MODE"
 
   result:
     needs: [demo]
