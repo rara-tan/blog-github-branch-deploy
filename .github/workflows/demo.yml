@@ -22,6 +22,7 @@ jobs:
     environment: production
     outputs:
       environment: ${{ steps.branch-deploy.outputs.environment }}
+      project: ${{ steps.set-outputs.outputs.project }}
     steps:
       - name: branch-deploy
         id: branch-deploy
@@ -56,6 +57,7 @@ jobs:
 
       - name: example
         if: steps.branch-deploy.outputs.continue == 'true'
+        id: set-outputs
         run: |
           PARAMS=${{ steps.branch-deploy.outputs.params }}
           IFS=',' read -ra PARAM_ARRAY <<< "$PARAMS"
@@ -63,9 +65,8 @@ jobs:
             KEY=$(echo $i | awk -F'=' '{print $1}')
             VALUE=$(echo $i | awk -F'=' '{print $2}')
             eval "$KEY=$VALUE"
+            echo "::set-output name=$KEY::$VALUE"
           done
-          echo "PROJECT: $PROJECT"
-          echo "MODE: $MODE"
 
   result:
     needs: [demo]
@@ -74,3 +75,6 @@ jobs:
     steps:
       - name: Env Test
         run: echo ${{ vars.TEST }}
+
+      - name: Env Test
+        run: echo ${{ needs.demo.outputs.project }}
