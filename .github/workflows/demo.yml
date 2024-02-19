@@ -73,7 +73,6 @@ jobs:
   result:
     needs: [demo]
     uses: rara-tan/blog-github-branch-deploy/.github/workflows/common.yml@main
-    runs-on: ubuntu-latest
     environment: ${{ needs.demo.outputs.environment }}
     with:
       workspace: ${{ needs.demo.outputs.ref }}
