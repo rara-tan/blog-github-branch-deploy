@@ -50,7 +50,7 @@ jobs:
           done
 
       - name: CPU Value
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.parse-parameter.outputs.CPU != "" }}
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.parse-parameter.outputs.CPU != '' }}
         run: echo ${{ steps.parse-parameter.outputs.CPU }}
       - name: MEMORY Value
         if: steps.branch-deploy.outputs.continue == 'true'
