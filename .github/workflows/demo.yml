@@ -32,6 +32,11 @@ jobs:
         with:
           environment_targets: staging-demo,production-demo
 
+      - name: example
+        if: steps.branch-deploy.outputs.continue == 'true'
+        run: |
+          echo "params: ${{ steps.branch-deploy.outputs.params }}"
+
       - name: Test Run
         run: echo "test run"
 
