@@ -39,15 +39,21 @@ jobs:
 
       - name: Parse Branch Deploy Parameter
         if: steps.branch-deploy.outputs.continue == 'true'
+        id: parse-parameter
         uses: actions/github-script@v7
         with:
           script: |
-            const paramString = "${{ steps.branch-deploy.outputs.params }}i"
-            console.log(paramString)
+            const paramString = "${{ steps.branch-deploy.outputs.params }}"
             const parsed = Object.fromEntries(paramString.split(",").map(item => item.split("=")));
             for (let [key, value] of Object.entries(parsed)) {
               console.log(`::set-output name=${key}::${value}`);
             }
+
+      - name: CPU Value
+        run: echo "CPU: ${{ steps.parse-parameter.outputs.CPU }}"
+
+      - name: MEMORY Value
+        run: echo "MEMORY: ${{ steps.parse-parameter.outputs.MEMORY }}"
 
       - name: Test Run
         run: echo "test run"
