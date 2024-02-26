@@ -51,7 +51,7 @@ jobs:
 
       - name: CPU Value
         if: steps.branch-deploy.outputs.continue == 'true'
-        run: echo steps.parse-parameter.outputs.CPU
+        run: echo ${{ steps.parse-parameter.outputs.CPU }}
 
       # - name: MEMORY Value
       #   run: echo "MEMORY: ${{ steps.parse-parameter.outputs.MEMORY }}"
