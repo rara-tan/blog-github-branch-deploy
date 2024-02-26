@@ -43,7 +43,7 @@ jobs:
         with:
           script: |
             const paramString = ${{ steps.branch-deploy.outputs.params }}
-            const parsed = Object.fromEntries(string.split(",").map(item => item.split("=")));
+            const parsed = Object.fromEntries(paramString.split(",").map(item => item.split("=")));
             for (let [key, value] of Object.entries(parsed)) {
               console.log(`::set-output name=${key}::${value}`);
             }
