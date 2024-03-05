@@ -31,7 +31,7 @@ jobs:
         uses: github/branch-deploy@v9.0.0
         with:
           environment_targets: staging-demo,production-demo
-          admins: super-user-hahaha
+          admins: rara-tan
 
       - name: example
         if: steps.branch-deploy.outputs.continue == 'true'
